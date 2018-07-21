@@ -16,12 +16,24 @@ export default class Counter extends PureComponent {
 
     style: Text.propTypes.style,
   };
+  
+  renderLimit = ( minLimit, limit, count ) => {
+    if ( minLimit ) {
+      if ( count < minLimit ) {
+        return `${ minLimit }+`
+      } else {
+        return limit
+      }
+    } else {
+      return limit
+    }
+  }
 
   render() {
-    let { count, limit, baseColor, errorColor, fontSize, style } = this.props;
+    let { count, limit, minLimit, baseColor, errorColor, fontSize, style } = this.props;
 
     let textStyle = {
-      color: count > limit? errorColor : baseColor,
+      color: ( (count > limit) || (minLimit > count) )? errorColor : baseColor,
       fontSize,
     };
 
@@ -32,7 +44,7 @@ export default class Counter extends PureComponent {
     return (
       <View style={styles.container}>
         <Text style={[styles.text, style, textStyle]}>
-          {count} / {limit}
+          {count} / {this.renderLimit(minLimit,limit,count)}
         </Text>
       </View>
     );
