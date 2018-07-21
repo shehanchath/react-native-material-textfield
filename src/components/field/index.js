@@ -330,6 +330,7 @@ export default class TextField extends PureComponent {
       value,
       defaultValue,
       characterRestriction: limit,
+      minCharacterRestriction: minLimit,
       editable,
       disabled,
       disabledLineType,
@@ -368,7 +369,7 @@ export default class TextField extends PureComponent {
 
     let active = !!(value || props.placeholder);
     let count = value.length;
-    let restricted = limit < count;
+    let restricted = (limit < count) ||(minLimit>count);
 
     let textAlign = I18nManager.isRTL?
       'right':
@@ -450,7 +451,7 @@ export default class TextField extends PureComponent {
 
     let helperContainerStyle = {
       flexDirection: 'row',
-      height: (title || limit)?
+      height: (title || limit || minLimit)?
         titleFontSize * 2:
         focus.interpolate({
           inputRange:  [-1, 0, 1],
@@ -502,6 +503,7 @@ export default class TextField extends PureComponent {
       errorColor,
       count,
       limit,
+      minLimit,
       fontSize: titleFontSize,
       style: titleTextStyle,
     };
