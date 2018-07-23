@@ -25,4 +25,10 @@ export default StyleSheet.create({
     justifyContent: 'center',
     alignSelf: 'flex-start',
   },
+
+  leftIcon: {
+    top: 1,
+    justifyContent: 'center',
+    alignSelf: 'flex-start',
+  }
 });
