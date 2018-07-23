@@ -68,11 +68,11 @@ export default class Label extends PureComponent {
   }
 
   inputState({ focused, active } = this.props) {
-    return active || focused? 1 : 0;
+    return active || focused ? 1 : 0;
   }
 
   focusState({ focused, errored } = this.props) {
-    return errored? -1 : (focused? 1 : 0);
+    return errored ? -1 : (focused ? 1 : 0);
   }
 
   render() {
@@ -89,14 +89,15 @@ export default class Label extends PureComponent {
       basePadding,
       style,
       errored,
-      active, 
+      active,
       focused,
       animationDuration,
+      leftIconWidth,
       ...props
     } = this.props;
 
-    let color = restricted?
-      errorColor:
+    let color = restricted ?
+      errorColor :
       focus.interpolate({
         inputRange: [-1, 0, 1],
         outputRange: [errorColor, baseColor, tintColor],
@@ -108,6 +109,11 @@ export default class Label extends PureComponent {
         baseSize + fontSize * 0.25,
         baseSize - basePadding - activeFontSize,
       ],
+    });
+
+    let left = input.interpolate({
+      inputRange: [0, 1],
+      outputRange: [leftIconWidth + (leftIconWidth > 0 ? 10 : 0), 0],
     });
 
     let textStyle = {
@@ -122,6 +128,7 @@ export default class Label extends PureComponent {
     let containerStyle = {
       position: 'absolute',
       top,
+      left,
     };
 
     return (
